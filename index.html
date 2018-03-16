@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 500px;
+            margin: 300px auto;
+        }
+
+        .sbw {
+            background: #409EFF;
+            color: #fff;
+            width: 128px;
+            height: 39px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            cursor: pointer;
+            user-select: none;
+            overflow: hidden;
+            position: relative;
+        }
+        .sbw-show {
+            position: absolute;
+            width: 0;
+            height: 0;
+            background-color: #2476cc;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="sbw">
+            点击
+            <span class="sbw-show"></span>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    var sbw = document.getElementsByClassName('sbw')[0]
+    var sbwShow = document.getElementsByClassName('sbw-show')[0]
+    var timer = null;
+    var interval = null;
+    var s, o
+
+    function nornalfunc() {
+        clearInterval(interval)
+        s = 0
+        sbwShow.style.width = s + 'px'
+        sbwShow.style.height = s + 'px'
+    }
+    sbw.addEventListener('mousedown', function() {
+        sbw.style.background = '#3795f7'
+        nornalfunc()
+    })
+    sbw.addEventListener('mouseup', function (e) {
+        sbw.style.background = '#409EFF'
+        s = 0
+        o = 0.6
+        clearInterval(interval)
+        sbwShow.style.opacity = o
+        sbwShow.style.left = e.offsetX + 'px'
+        sbwShow.style.top = e.offsetY + 'px'
+        interval = setInterval(function () {
+            s += 1.2
+            o -= 0.004
+            sbwShow.style.width = s + 'px'
+            sbwShow.style.height = s + 'px'
+            sbwShow.style.opacity = o
+            if (o <= 0) nornalfunc()
+        }, 1)
+    })
+</script>
